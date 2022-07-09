@@ -23,7 +23,7 @@ public class ForgotPasswordControler extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
 
-        Account a = AccountService.getInstance().checkAccountExist(username);
+        Account a = AccountService.getInstance().checkUserExist(username);
         String subject = "Forgot Password";
 
 

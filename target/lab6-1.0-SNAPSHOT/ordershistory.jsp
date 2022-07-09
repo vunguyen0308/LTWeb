@@ -5,8 +5,8 @@
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="orderStatus" scope="request" class="vn.hcmuaf.edu.fit.projectLTW.dao.OrderStatusDao"/>
-<jsp:useBean id="payment" scope="request" class="vn.hcmuaf.edu.fit.projectLTW.dao.PaymentDao"/>
+<jsp:useBean id="orderStatus" scope="request" class="vn.hcmuaf.edu.fit.lab6.dao.OrderStatusDao"/>
+<jsp:useBean id="payment" scope="request" class="vn.hcmuaf.edu.fit.lab6.dao.PaymentDao"/>
 
 <!DOCTYPE html>
 <html>

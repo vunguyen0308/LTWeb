@@ -112,7 +112,7 @@ public class OrderDao {
 
 
     public static void main(String[] args) {
-        Account a = new Account(1,"123","123","123",1);
+        Account a = new Account(1,"123","123","123",1,0);
         Order order = new Order(a,1,"123","123","123","123");
         OrderDao o = new OrderDao();
         System.out.println(o.createOrder(order));

@@ -7,7 +7,7 @@
     <!--Checkout filter-->
     <filter>
         <filter-name>CheckoutFilter</filter-name>
-        <filter-class>vn.hcmuaf.edu.fit.projectLTW.filter.CheckoutFilter</filter-class>
+        <filter-class>vn.hcmuaf.edu.fit.lab6.filter.CheckoutFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -19,7 +19,7 @@
     <!--Check login filter-->
     <filter>
         <filter-name>CheckLoginFilter</filter-name>
-        <filter-class>vn.hcmuaf.edu.fit.projectLTW.filter.CheckLoginFilter</filter-class>
+        <filter-class>vn.hcmuaf.edu.fit.lab6.filter.CheckLoginFilter</filter-class>
     </filter>
 
     <filter-mapping>

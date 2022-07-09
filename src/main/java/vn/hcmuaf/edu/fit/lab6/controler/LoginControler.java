@@ -44,7 +44,7 @@ public class LoginControler extends HttpServlet {
             request.setAttribute("user", username);
             request.setAttribute("message","Username or Password is incorrect");
             request.getRequestDispatcher("login.jsp").forward(request,response);
-        }else{
+        }else if(a.getStatus() == 1){
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
             Cookie u = new Cookie("userC", username);
@@ -71,6 +71,10 @@ public class LoginControler extends HttpServlet {
                 }
             }
 
+        }else{
+            request.setAttribute("user", username);
+            request.setAttribute("message","Your account has not been activated.");
+            request.getRequestDispatcher("login.jsp").forward(request,response);
         }
     }
 }
