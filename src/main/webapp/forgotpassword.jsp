@@ -24,6 +24,7 @@
     <!-- Sing in  Form -->
     <section class="sign-in">
         <div class="container">
+            <a href="index" class="back-home" title="Back to home"><i class="fas fa-home"></i></a>
             <div class="signin-content">
                 <div class="signin-image">
                     <figure><img src="images/signin-image.jpg" alt="Forgot pass image"></figure>

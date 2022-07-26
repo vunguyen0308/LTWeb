@@ -43,9 +43,35 @@ public class CategoryDao {
         return list;
     }
 
-    public List<Product> getProductByCID(String cid, int index, int size) {
+    public List<Product> getProductByCID(String cid, int index, int size,int sortCode, int conditionCode) {
+        String sortBy = "";
+        String condition = "";
+
+//        check sắp xếp theo ?
+        switch (sortCode){
+            case 0:
+                sortBy = "id";
+                break;
+            case 1:
+                sortBy = "name";
+                break;
+            case 2:
+                sortBy = "sellprice";
+                break;
+        }
+
+//        check điều kiện sắp xếp
+        switch (conditionCode){
+            case 0:
+                condition = "ASC";
+                break;
+            case 1:
+                condition = "DESC";
+                break;
+        }
+
         List<Product> list = new ArrayList<>();
-        String query = "with x as (select *, ROW_NUMBER() over (order by id asc ) as r from product\n" +
+        String query = "with x as (select *, ROW_NUMBER() over (order by " + sortBy + " " + condition + " ) as r from product\n" +
                 " where cid = ?) \n" +
                 "select * from x where r between ? and ?";
         try {
@@ -96,7 +122,7 @@ public class CategoryDao {
 
     public static void main(String[] args) {
         CategoryDao p1 = new CategoryDao();
-        List<Product> list = p1.getProductByCID("3", 1,10);
+        List<Product> list = p1.getProductByCID("3", 1,10, 1, 1);
         for (Product p :
                 list) {
             System.out.println(p);

@@ -89,28 +89,30 @@
                 <div class="sort-grid">
                     <div class="sorting">
                         <h6>Sort By</h6>
-                        <form name="sortform" action="search" method="post">
-                            <select id="country1" name="sortvalue" onchange="document.sortform.submit();" class="frm-field ">
-                                <option value="0">Default</option>
-                                <option value="1">Name(A - Z)</option>
-                                <option value="2">Name(Z - A)</option>
-                                <option value="3">Price(High - Low)</option>
-                                <option value="4">Price(Low - High)</option>
+                        <form name="sort-form" action="search" method="get">
+                            <select id="country1" name="sort" onchange="document.sort-form.submit();" class="frm-field ">
+                                <option value="0" ${sortCode == 0 ? "selected" : ""}>Default</option>
+                                <option value="1" ${sortCode == 1 ? "selected" : ""}>Name(A - Z)</option>
+                                <option value="2" ${sortCode == 2 ? "selected" : ""}>Name(Z - A)</option>
+                                <option value="3" ${sortCode == 3 ? "selected" : ""}>Price(High - Low)</option>
+                                <option value="4" ${sortCode == 4 ? "selected" : ""}>Price(Low - High)</option>
                                 <input style="display: none" name="search" value="${result}">
+                                <input style="display: none" name="sizepage" value="${size}">
                             </select>
                         </form>
                         <div class="clearfix"></div>
                     </div>
                     <div class="sorting">
                         <h6>Showing</h6>
-                        <form name="pagesizeform" action="search" method="post">
-                            <select  id="country2" name="sizepage" onchange="document.pagesizeform.submit();" class="frm-field  ">
+                        <form name="pagesize-form" action="search" method="get">
+                            <select  id="country2" name="sizepage" onchange="document.pagesize-form.submit();" class="frm-field  ">
                                 <option value="8"  ${size == 8 ? "selected" : ""} >8</option>
                                 <option value="16" ${size == 16 ? "selected" : ""}>16</option>
                                 <option value="20" ${size == 20 ? "selected" : ""} >20</option>
                                 <option value="32" ${size == 32 ? "selected" : ""}>32</option>
                                 <option value="40" ${size == 40 ? "selected" : ""}>40</option>
                                 <input style="display: none" name="search" value="${result}">
+                                <input style="display: none" name="sort" value="${sortCode}">
                             </select>
                         </form>
                         <div class="clearfix"></div>
@@ -190,18 +192,18 @@
         <ul class="pagination justify-content-center">
             <c:if test="${tag > 1}">
                 <li class="page-item">
-                    <a class="page-link" href="search?page=${tag-1}&search=${result}&sizepage=${size}" aria-label="Previous">
+                    <a class="page-link" href="search?page=${tag-1}&search=${result}&sizepage=${size}&sort=${sortCode}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
             </c:if>
             <c:forEach begin="1" end="${end}" var="i">
-                <li class="page-item ${tag == i ? "active" : "" }"><a class="page-link" href="search?page=${i}&search=${result}&sizepage=${size}">${i}</a></li>
+                <li class="page-item ${tag == i ? "active" : "" }"><a class="page-link" href="search?page=${i}&search=${result}&sizepage=${size}&sort=${sortCode}">${i}</a></li>
             </c:forEach>
             <c:if test="${tag < end}">
                 <li class="page-item">
-                    <a class="page-link" href="search?page=${tag+1}&search=${result}&sizepage=${size}" aria-label="Next">
+                    <a class="page-link" href="search?page=${tag+1}&search=${result}&sizepage=${size}&sort=${sortCode}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>

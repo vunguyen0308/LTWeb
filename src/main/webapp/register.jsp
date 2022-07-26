@@ -20,6 +20,7 @@
 <!-- Register form -->
     <section class="signup">
         <div class="container">
+            <a href="index" class="back-home" title="Back to home"><i class="fas fa-home"></i></a>
             <div class="signup-content">
                 <div class="signup-form">
                     <h2 class="form-title">Sign up</h2>

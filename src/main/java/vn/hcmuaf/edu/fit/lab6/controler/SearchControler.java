@@ -22,7 +22,41 @@ public class SearchControler extends HttpServlet {
             if(search == null){
                 search = "";
             }
+
 //            sort
+            String sort = request.getParameter("sort");
+            if(sort == null){
+                sort = "0";
+            }
+            int sortCode = Integer.parseInt(sort);
+            int sortByCode = -1;
+            int conditionCode = -1;
+
+            switch (sortCode){
+                case 0:
+                    sortByCode = 0;
+                    conditionCode = 0;
+                    break;
+                case 1:
+                    sortByCode = 1;
+                    conditionCode = 0;
+                    break;
+                case 2:
+                    sortByCode = 1;
+                    conditionCode = 1;
+                    break;
+                case 3:
+                    sortByCode = 2;
+                    conditionCode = 1;
+                    break;
+                case 4:
+                    sortByCode = 2;
+                    conditionCode = 0;
+                    break;
+            }
+
+//
+
 
 //            pagination
             String indexString = request.getParameter("page");
@@ -43,10 +77,11 @@ public class SearchControler extends HttpServlet {
                 endPage++;
             }
 
-            List<Product> list = ProductService.getInstance().searchByName(search.trim(),page,pageSize);
+            List<Product> list = ProductService.getInstance().searchByName(search.trim(),page,pageSize,sortByCode,conditionCode);
             List<Category> listC = CategoryService.getInstance().getAllCategory();
 
             request.setAttribute("size", size);
+            request.setAttribute("sortCode", sort);
             request.setAttribute("listPBS", list);
             request.setAttribute("result", search);
             request.setAttribute("end", endPage);

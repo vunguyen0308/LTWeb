@@ -13,6 +13,7 @@
     <filter-mapping>
         <filter-name>CheckoutFilter</filter-name>
         <url-pattern>/checkout/*</url-pattern>
+        <url-pattern>/order/*</url-pattern>
     </filter-mapping>
     <!--//-->
 

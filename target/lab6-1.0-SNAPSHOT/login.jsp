@@ -21,6 +21,7 @@
 <!-- Sing in  Form -->
     <section class="sign-in">
         <div class="container">
+            <a href="index" class="back-home" title="Back to home"><i class="fas fa-home"></i></a>
             <div class="signin-content">
                 <div class="signin-image">
                     <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
@@ -29,7 +30,7 @@
                 </div>
 
                 <div class="signin-form">
-                    <h2 class="form-title">Sign up</h2>
+                    <h2 class="form-title">Sign in</h2>
 
                     <h4 class="text-danger">${message}</h4>
                     <form method="post" class="login-form" id="login-form" action="login">

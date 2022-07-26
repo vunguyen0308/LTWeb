@@ -23,8 +23,8 @@ public class CategoryService {
         return CategoryDao.getInstance().getAllCategory();
     }
 
-    public List<Product> getProductByCID(String cid, int index, int size) {
-        return CategoryDao.getInstance().getProductByCID(cid, index, size);
+    public List<Product> getProductByCID(String cid, int index, int size, int sortCode, int conditionCode) {
+        return CategoryDao.getInstance().getProductByCID(cid, index, size,sortCode,conditionCode);
     }
 
     public Category getCategoryByCId(String cid){

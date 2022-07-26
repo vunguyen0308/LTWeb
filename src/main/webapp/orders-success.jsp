@@ -49,8 +49,9 @@
     <div class="block-card">
         <div class="text-error text-center">
             <img src="images/thanks.pn" alt="">
-            <h3 class="error-text"><strong>Thanks for your order !</strong></h3>
-            <button style="margin-top: 16px" onclick="location.href ='product'" class="btn btn-primary">Continue Shopping</button>
+            <h3 class="error-text"><strong>Thanks for your order!</strong></h3>
+            <h4 class="error-text"><strong>Please check your email for order details.</strong></h4>
+            <button style="margin-top: 16px; padding: 12px 16px" onclick="location.href ='product'" class="btn btn-primary">Continue Shopping</button>
         </div>
     </div>
 </div>

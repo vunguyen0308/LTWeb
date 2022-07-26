@@ -16,8 +16,42 @@ public class CategoryControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try{
-            String cateID = request.getParameter("cid");
 
+//            sort
+
+            String sort = request.getParameter("sort");
+            if(sort == null){
+                sort = "0";
+            }
+            int sortCode = Integer.parseInt(sort);
+            int sortByCode = -1;
+            int conditionCode = -1;
+
+            switch (sortCode){
+                case 0:
+                    sortByCode = 0;
+                    conditionCode = 0;
+                    break;
+                case 1:
+                    sortByCode = 1;
+                    conditionCode = 0;
+                    break;
+                case 2:
+                    sortByCode = 1;
+                    conditionCode = 1;
+                    break;
+                case 3:
+                    sortByCode = 2;
+                    conditionCode = 1;
+                    break;
+                case 4:
+                    sortByCode = 2;
+                    conditionCode = 0;
+                    break;
+            }
+//
+
+            String cateID = request.getParameter("cid");
 //            pagination
             String indexString = request.getParameter("page");
             if(indexString == null){
@@ -37,12 +71,13 @@ public class CategoryControler extends HttpServlet {
                 endPage++;
             }
 
-            List<Product> listPByC = CategoryService.getInstance().getProductByCID(cateID,page,pageSize);
+            List<Product> listPByC = CategoryService.getInstance().getProductByCID(cateID,page,pageSize,sortByCode,conditionCode);
             List<Category> listC = CategoryService.getInstance().getAllCategory();
 
             request.setAttribute("listPByC", listPByC);
             request.setAttribute("listC", listC);
             request.setAttribute("size", size);
+            request.setAttribute("sortCode", sort);
             request.setAttribute("end", endPage);
             request.setAttribute("tag", page);
             request.setAttribute("tagC", Integer.parseInt(cateID));

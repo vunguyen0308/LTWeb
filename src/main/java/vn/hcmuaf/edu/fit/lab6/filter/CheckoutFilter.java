@@ -30,7 +30,7 @@ public class CheckoutFilter implements Filter {
         boolean loginRequest = httpServletRequest.getRequestURI().equals(loginURI);
 
         if(loggedIn || loginRequest){
-            if(cart.getData().size() == 0){
+            if(cart == null){
                 httpServletResponse.sendRedirect("cart");
             }else{
                 chain.doFilter(request, response);
