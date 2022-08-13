@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -24,7 +26,7 @@
             <div class="signup-content">
                 <div class="signup-form">
                     <h2 class="form-title">Sign up</h2>
-                    <h4 class="text-danger">${message}</h4>
+                    <h4 class="${success.length() > 0 ? "text-success": "text-danger"}">${message}</h4>
                     <form method="post" class="register-form" id="register-form" action="register">
                         <div class="input-line">
                             <div class="form-group">
@@ -72,6 +74,14 @@
         </div>
     </section>
 </div>
+<c:if test="${sessionScope.closeTab != null}">
+    <script>
+        $(document).ready(function() {
+            window.location.refresh();
+        });
+    </script>
+
+</c:if>
 <!-- JS -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="js/main.js"></script>

@@ -42,6 +42,7 @@ public class LoginControler extends HttpServlet {
         Account a = AccountService.getInstance().login(username,password);
         if(a == null){
             request.setAttribute("user", username);
+            request.setAttribute("success", "");
             request.setAttribute("message","Username or Password is incorrect");
             request.getRequestDispatcher("login.jsp").forward(request,response);
         }else if(a.getStatus() == 1){
@@ -73,7 +74,8 @@ public class LoginControler extends HttpServlet {
 
         }else{
             request.setAttribute("user", username);
-            request.setAttribute("message","Your account has not been activated.");
+            request.setAttribute("success", "");
+            request.setAttribute("message","Your account has not been activated. Please check your email and active account");
             request.getRequestDispatcher("login.jsp").forward(request,response);
         }
     }

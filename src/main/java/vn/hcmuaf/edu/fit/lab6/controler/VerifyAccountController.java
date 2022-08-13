@@ -17,10 +17,18 @@ public class VerifyAccountController extends HttpServlet {
         String hashPass = request.getParameter("key2");
 
         Account a =  AccountService.getInstance().activeAccount(email,hashPass);
+        session.setAttribute("closeTab","closeTab");
         if(a!= null){
-            response.setStatus(HttpServletResponse.SC_OK);
+            request.setAttribute("message","Your account has been activated!");
+            request.setAttribute("user", a.getUsername());
+            request.setAttribute("success","success");
+            request.getRequestDispatcher("login.jsp").forward(request,response);
+        }else{
+            request.setAttribute("message","Account activation failed!");
+            request.setAttribute("success","");
+            request.getRequestDispatcher("register.jsp").forward(request,response);
         }
-        response.sendRedirect("login");
+
     }
 
     @Override

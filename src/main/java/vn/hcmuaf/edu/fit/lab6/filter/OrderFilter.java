@@ -1,5 +1,7 @@
 package vn.hcmuaf.edu.fit.lab6.filter;
 
+import vn.hcmuaf.edu.fit.lab6.beans.Cart;
+
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,8 @@ public class OrderFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
-        String referer = ((HttpServletRequest) request).getHeader("referer");
+
+        String referer = httpServletRequest.getHeader("referer");
         if(referer == null || !referer.endsWith("checkout")){
             httpServletResponse.sendRedirect("checkout");
         }else{

@@ -46,4 +46,8 @@ public class AdminService {
     public void addUser(String userName, String passWord, String email, String isAdmin){
         AdminDao.getInstance().addUser(userName, passWord, email, isAdmin);
     }
+
+    public Account activeAccount(String id){
+        return AdminDao.getInstance().activeAccount(id);
+    }
 }

@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "RegisterControler", value = "/register")
 public class RegisterControler extends HttpServlet {
@@ -21,7 +22,7 @@ public class RegisterControler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         try {
             String user = request.getParameter("Username");
             String pass = request.getParameter("Password");
@@ -34,12 +35,14 @@ public class RegisterControler extends HttpServlet {
             if(checkUser != null){
                 request.setAttribute("user", user);
                 request.setAttribute("email", email);
+                request.setAttribute("success", "");
                 request.setAttribute("message", "Username already exists");
                 request.getRequestDispatcher("register.jsp").forward(request,response);
 
             }else if(checkEmail != null) {
                 request.setAttribute("user", user);
                 request.setAttribute("email", email);
+                request.setAttribute("success", "");
                 request.setAttribute("message", "Email already exists");
                 request.getRequestDispatcher("register.jsp").forward(request, response);
 
@@ -48,8 +51,10 @@ public class RegisterControler extends HttpServlet {
                 String hashPass = AccountDao.getInstance().hashPassword(pass);
                 String content = "Click here: " + " http://localhost:8080/lab6_war_exploded/VerifyAccountController?key1=" + email + "&key2=" + hashPass + "  to verify your account";
                 Mail.sendMail(email,subject,content);
+                request.setAttribute("success", "success");
                 request.setAttribute("message", "An account verification email has been sent to you. Please check your email and verify your account.");
                 request.getRequestDispatcher("register.jsp").forward(request,response);
+
 
             }
         }catch (Exception e){

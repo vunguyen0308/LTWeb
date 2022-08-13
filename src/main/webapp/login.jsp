@@ -31,8 +31,7 @@
 
                 <div class="signin-form">
                     <h2 class="form-title">Sign in</h2>
-
-                    <h4 class="text-danger">${message}</h4>
+                    <h4 class="${success.length() > 0 ? "text-success": "text-danger"}">${message}</h4>
                     <form method="post" class="login-form" id="login-form" action="login">
                         <div class="input-line">
                             <div class="form-group">

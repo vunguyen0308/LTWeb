@@ -186,4 +186,44 @@ public class AdminDao {
         return  total;
     }
 
+    public Account activeAccount(String id){
+        String query ="select * from account where `user_id` = ? and `status` = 0";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,id);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                active(id);
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6));
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    private void active(String a_id){
+        String query ="update account set `status` = 1 where `user_id` = ?";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,a_id);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+
+    public static void main(String[] args) {
+        AdminDao a = new AdminDao();
+        a.activeAccount("2");
+    }
+
 }

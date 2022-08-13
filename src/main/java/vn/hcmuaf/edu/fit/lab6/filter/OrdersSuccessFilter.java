@@ -19,11 +19,14 @@ public class OrdersSuccessFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        String referer = ((HttpServletRequest) request).getHeader("referer");
-        if(referer == null || !referer.endsWith("order")){
+        HttpSession session = httpServletRequest.getSession();
+
+        String referer = httpServletRequest.getHeader("referer");
+        if(referer == null || !referer.endsWith("checkout")){
             httpServletResponse.sendRedirect("order");
         }else{
             chain.doFilter(request,response);
+
         }
     }
 }
