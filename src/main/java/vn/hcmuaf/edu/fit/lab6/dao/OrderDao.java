@@ -36,7 +36,7 @@ public class OrderDao {
             ps.setInt(1,order.getAccount().getUserId());
             ps.setDouble(2,order.getTotal());
             ps.setString(3,order.getPayment());
-            ps.setString(4,order.getFullname());
+            ps.setString(4,order.getFullName());
             ps.setString(5, order.getAddress());
             ps.setString(6, order.getPhoneNumber());
             ps.executeUpdate();

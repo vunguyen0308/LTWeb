@@ -1,8 +1,12 @@
 package vn.hcmuaf.edu.fit.lab6.dao;
 
 import vn.hcmuaf.edu.fit.lab6.beans.Account;
+import vn.hcmuaf.edu.fit.lab6.beans.Order;
+import vn.hcmuaf.edu.fit.lab6.beans.OrderDetail;
 import vn.hcmuaf.edu.fit.lab6.beans.Product;
 import vn.hcmuaf.edu.fit.lab6.db.DBConnect;
+import vn.hcmuaf.edu.fit.lab6.service.AccountService;
+import vn.hcmuaf.edu.fit.lab6.service.ProductService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,24 +85,40 @@ public class AdminDao {
         return list;
     }
 
+    public List<Order> getAllOrder() {
+        List<Order> list = new ArrayList<>();
+        String query ="select * from orders";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                list.add(new Order(
+                        rs.getInt(1),
+                        AccountService.getInstance().getAccountById(rs.getString(2)),
+                        rs.getDouble(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getTimestamp(8),
+                        rs.getTimestamp(9),
+                        rs.getInt(10)
+                ));
+            }
+        }catch (Exception e){
+
+        }
+        return list;
+    }
+
+
     public void removeProduct(String id){
         String query = "delete from product where id = ?";
         try{
             conn = DBConnect.connect().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1,id);
-            ps.executeUpdate();
-        }catch (Exception e){
-
-        }
-    }
-
-    public void removeUser(String uid) {
-        String query = "delete from account where user_id = ?";
-        try{
-            conn = DBConnect.connect().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1,uid);
             ps.executeUpdate();
         }catch (Exception e){
 
@@ -130,12 +150,12 @@ public class AdminDao {
     }
 
     public void addUser(String userName, String passWord, String email, String isAdmin){
-        String query = "insert into account (`username`,`password`,`email`,`isAdmin`) values(?,?,?,?)";
+        String query = "insert into account (`username`,`password`,`email`,`isAdmin`,`status`) values(?,?,?,?,1)";
         try{
             conn = DBConnect.connect().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1,userName);
-            ps.setString(2,passWord);
+            ps.setString(2,AccountDao.getInstance().hashPassword(passWord));
             ps.setString(3,email);
             ps.setString(4,isAdmin);
             ps.executeUpdate();
@@ -186,15 +206,16 @@ public class AdminDao {
         return  total;
     }
 
-    public Account activeAccount(String id){
-        String query ="select * from account where `user_id` = ? and `status` = 0";
+//    active account
+    public Account activeAccount(String a_id){
+        String query ="select * from account where `user_id` = ?  and `status` = 0";
         try{
             conn = DBConnect.connect().getConnection();
             ps = conn.prepareStatement(query);
-            ps.setString(1,id);
+            ps.setString(1,a_id);
             rs = ps.executeQuery();
             if (rs.next()){
-                active(id);
+                active(a_id);
                 return new Account(
                         rs.getInt(1),
                         rs.getString(2),
@@ -209,8 +230,9 @@ public class AdminDao {
         return null;
     }
 
+
     private void active(String a_id){
-        String query ="update account set `status` = 1 where `user_id` = ?";
+        String query ="update account set `status` = 1 where `user_id` = ? ";
         try{
             conn = DBConnect.connect().getConnection();
             ps = conn.prepareStatement(query);
@@ -220,10 +242,246 @@ public class AdminDao {
 
         }
     }
+//
+
+//    disable account
+    public Account disableAccount(String a_id){
+        String query ="select * from account where `user_id` = ?  and `status` = 1";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,a_id);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                disable(a_id);
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6));
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    private void disable(String a_id){
+        String query ="update account set `status` = 2 where `user_id` = ? ";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,a_id);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+//
+
+//    enable account
+    public Account enableAccount(String a_id){
+        String query ="select * from account where `user_id` = ?  and `status` = 2";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,a_id);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                enable(a_id);
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6));
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+
+    private void enable(String a_id){
+        String query ="update account set `status` = 1 where `user_id` = ? ";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,a_id);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+//
+
+//    get all order detail by orderId
+public List<OrderDetail> getAllOrderDetailByOrderId(String orderId) {
+    List<OrderDetail> list = new ArrayList<>();
+    String query = "select * from orders_detail where orders_id = ?";
+    try {
+        conn = DBConnect.connect().getConnection();
+        ps = conn.prepareStatement(query);
+        ps.setString(1,orderId);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            list.add(new OrderDetail(rs.getInt(1),
+                    rs.getInt(2),
+                    ProductService.getInstance().getProductById(rs.getString(3)),
+                    rs.getDouble(4),
+                    rs.getInt(5),
+                    rs.getTimestamp(6),
+                    rs.getTimestamp(7)
+            ));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
+//
+
+
+//  accept order
+
+    public Order acceptOrder(String oId) {
+        String query ="select * from orders where `orders_id` = ?  and `status` = 1";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,oId);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                accept(oId);
+                return new Order(
+                        rs.getInt(1),
+                        AccountService.getInstance().getAccountById(rs.getString(2)),
+                        rs.getDouble(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getTimestamp(8),
+                        rs.getTimestamp(9),
+                        rs.getInt(10)
+                );
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    private void accept(String oId) {
+        String query ="update orders set `status` = 2 where `orders_id` = ?";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,oId);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+//
+
+//    next step order
+    public Order nextStepOrder(String oId, String oStatus){
+        String query ="select * from orders where `orders_id` = ?  and `status` < 4";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,oId);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                nextStep(oId,oStatus);
+                return new Order(
+                        rs.getInt(1),
+                        AccountService.getInstance().getAccountById(rs.getString(2)),
+                        rs.getDouble(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getTimestamp(8),
+                        rs.getTimestamp(9),
+                        rs.getInt(10)
+                );
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    private void nextStep(String oId, String oStatus) {
+        String query ="update orders set `status` = ? where `orders_id` = ?";
+        int status = Integer.parseInt(oStatus);
+
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1,status + 1);
+            ps.setString(2,oId);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+//
+
+//    cancel order
+    public Order cancelOrder(String oId){
+        String query ="select * from orders where `orders_id` = ?  and `status` between 1 and 3";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,oId);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                cancel(oId);
+                return new Order(
+                        rs.getInt(1),
+                        AccountService.getInstance().getAccountById(rs.getString(2)),
+                        rs.getDouble(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getTimestamp(8),
+                        rs.getTimestamp(9),
+                        rs.getInt(10)
+                );
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+    }
+
+    private void cancel(String oId) {
+        String query ="update orders set `status` = 5 where `orders_id` = ?";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,oId);
+            ps.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+//
 
     public static void main(String[] args) {
         AdminDao a = new AdminDao();
-        a.activeAccount("2");
+        Order o = a.nextStepOrder("75","2");
+        System.out.println(o);
     }
+
 
 }

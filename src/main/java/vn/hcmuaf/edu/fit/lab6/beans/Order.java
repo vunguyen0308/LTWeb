@@ -68,12 +68,12 @@ public class Order {
         this.payment = payment;
     }
 
-    public String getFullname() {
+    public String getFullName() {
         return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullName = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getAddress() {

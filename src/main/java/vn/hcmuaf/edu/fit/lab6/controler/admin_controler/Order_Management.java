@@ -1,6 +1,6 @@
 package vn.hcmuaf.edu.fit.lab6.controler.admin_controler;
 
-import vn.hcmuaf.edu.fit.lab6.beans.Account;
+import vn.hcmuaf.edu.fit.lab6.beans.Order;
 import vn.hcmuaf.edu.fit.lab6.service.AdminService;
 
 import javax.servlet.*;
@@ -9,14 +9,13 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "User_Management", value = "/admin/user-management")
-public class User_Management extends HttpServlet {
+@WebServlet(name = "Order_Management", value = "/admin/order-management")
+public class Order_Management extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Account> aList = AdminService.getInstance().getAllAccount();
-        request.setAttribute("listA",aList);
-        request.getRequestDispatcher("user-management.jsp").forward(request,response);
-
+        List<Order> orderList = AdminService.getInstance().getAllOrder();
+        request.setAttribute("listOrder",orderList);
+        request.getRequestDispatcher("order-management.jsp").forward(request,response);
     }
 
     @Override

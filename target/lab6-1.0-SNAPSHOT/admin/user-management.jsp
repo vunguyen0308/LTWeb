@@ -19,9 +19,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -90,7 +88,7 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="a" items="${listA}" varStatus="count">
-                                    <tr>
+                                    <tr class="${a.status == 2 ? "table-active":""}">
                                         <td>${count.count}</td>
                                         <td>${a.userId}</td>
                                         <td>${a.username}</td>
@@ -101,21 +99,18 @@
                                             <div class="dropdown no-arrow mr-2">
                                                 <a class="dropdown-toggle" href="javascript:" role="button" id="dropdownMenuLink1"
                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                    <i class="icon-another fas fa-ellipsis-v fa-sm fa-fw ${a.status == 2 ? "text-gray-700":"text-gray-400"}"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                      aria-labelledby="dropdownMenuLink">
-                                                    <div class="dropdown-header">Another action</div>
-                                                    <a class="dropdown-item  ${a.status == 1 ? "disabled": ""} active-account" href="javascript:activeAccount(this)" aid="${a.userId}" >Active account</a>
-                                                    <c:if test="${a.status == 2}">
-                                                        <a class="dropdown-item" href="ac">Enable</a>
-                                                    </c:if>
-                                                    <c:if test="${a.status != 2}">
-                                                        <a class="dropdown-item" href="#">Disable</a>
-                                                    </c:if>
+                                                    <div class="dropdown-header">User action</div>
+                                                    <!-- Divider -->
+                                                    <hr class="sidebar-divider my-0">
+                                                    <a class="active-account dropdown-item ${a.status == 0 ? "": "disabled"}" href="javascript:" uid="${a.userId}" >Active account</a>
+                                                    <a class="enable-account dropdown-item ${a.status == 2 ? "":"disabled"}" href="javascript:" uid="${a.userId}">Enable account</a>
+                                                    <a class="disable-account dropdown-item ${a.status == 1 ? "":"disabled"}" href="javascript:" uid="${a.userId}">Disable account</a>
                                                 </div>
                                             </div>
-                                            <button class="delete-icon" title="Delete" onclick="removeUser(this)" uid="${a.userId}"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -161,15 +156,15 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="username"><Strong>User Name</Strong></label>
-                        <input type="text" name="username" class="form-control" id="username"  placeholder="Enter product name">
+                        <input type="text" name="username" class="form-control" id="username"  placeholder="Enter user name">
                     </div>
                     <div class="form-group">
                         <label for="password"><Strong>Password</Strong></label>
-                        <input type="text" name="password" class="form-control" id="password"  placeholder="Enter product name">
+                        <input type="text" name="password" class="form-control" id="password"  placeholder="Enter your password">
                     </div>
                     <div class="form-group">
                         <label for="email"><Strong>Email</Strong></label>
-                        <input type="text" name="email" class="form-control" id="email"  placeholder="Enter product name">
+                        <input type="text" name="email" class="form-control" id="email"  placeholder="Enter your email">
                     </div>
                     <div class="form-group">
                         <label for="role"><Strong>Role</Strong></label>
@@ -208,57 +203,130 @@
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
 
-
+<%--active account--%>
 <script>
+    $(document).ready(function () {
+        $(".active-account").click(function (){
+            var id = $(this).attr("uid");
+            var status_text = $(this).closest("tr").find(".status-text");
+            var active_btn = $(this).closest("tr").find(".active-account");
+            var disable_btn = $(this).closest("tr").find(".disable-account");
+            if(confirm("Are you sure you want to active this account?")){
+                $.ajax({
+                    url: '/lab6_war_exploded/admin/activeAccount',
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function (data){
+                        status_text.html("Activated");
+                        setTimeout(function(){
+                            active_btn.addClass("disabled");
+                            disable_btn.removeClass("disabled");
+                        },10)
+                    },
+                    error: function (data){
+                        if(data.status == 404){
+                            alert("Active fail!");
+                        }
+                    }
 
-    function activeAccount(row) {
-        var id = $(row).attr("aid");
-        var status_text = $(row).closest("tr").find(".status-text");
-        if(confirm("Are you sure you want to active this account?")){
-            $.ajax({
-                url: "/lab6_war_exploded/admin/ActiveAccount",
-                method: "POST",
-                data: {
-                    id: id
-                },
-                success: function (data){
-                    alert("Success");
-                    status_text.html(data);
+                });
 
-                },
-                error: function (data){
-                    alert("Active fail!");
-                }
-            });
+            }
+        });
 
-        }
-
-    }
+    });
 
 </script>
+<%--//--%>
 
-<%--remove user--%>
+<%--disable account--%>
 <script>
-    function removeUser(userRow) {
-        var id = $(userRow).attr("uid");
-        tr = $(userRow).closest("tr");
-        if(confirm("Are you sure you want to delete?")){
-            $.ajax({
-                url: "/lab6_war_exploded/admin/removeUManagement",
-                method: "POST",
-                data: {
-                    id: id
-                },
-                success: function (data){
-                    tr.remove();
-                },
-                error: function (data){
-                    alert("Delete fail!")
-                }
-            });
+    $(document).ready(function () {
+        $(".disable-account").click(function (){
+            var id = $(this).attr("uid");
+            var status_text = $(this).closest("tr").find(".status-text");
+            var disable_btn = $(this).closest("tr").find(".disable-account");
+            var enable_btn = $(this).closest("tr").find(".enable-account");
+            var active_btn = $(this).closest("tr").find(".active-account");
+            var tr = $(this).closest("tr");
+            var icon = $(this).closest("tr").find(".icon-another");
+            if(confirm("Are you sure you want to disable this account?")){
+                $.ajax({
+                    url: '/lab6_war_exploded/admin/disableAccount',
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function (data){
+                        status_text.html("Disable");
+                        setTimeout(function(){
+                            enable_btn.removeClass("disabled");
+                            disable_btn.addClass("disabled");
+                            active_btn.addClass("disabled")
+                            tr.addClass("table-active");
+                            icon.removeClass("text-gray-400").addClass("text-gray-700");
+                        },10)
+                    },
+                    error: function (data){
+                        if(data.status == 404){
+                            alert("Disable account fail!");
 
-        }
-    }
+                        }
+                    }
+
+                });
+
+            }
+        });
+
+    });
+
+</script>
+<%--//--%>
+
+<%--enable account--%>
+<script>
+    $(document).ready(function () {
+        $(".enable-account").click(function (){
+            var id = $(this).attr("uid");
+            var status_text = $(this).closest("tr").find(".status-text");
+            var disable_btn = $(this).closest("tr").find(".disable-account");
+            var enable_btn = $(this).closest("tr").find(".enable-account");
+            var active_btn = $(this).closest("tr").find(".active-account");
+            var tr = $(this).closest("tr");
+            var icon = $(this).closest("tr").find(".icon-another");
+            if(confirm("Are you sure you want to enable this account?")){
+                $.ajax({
+                    url: '/lab6_war_exploded/admin/enableAccount',
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function (data){
+                        status_text.html("Active");
+                        setTimeout(function(){
+                            enable_btn.addClass("disabled");
+                            disable_btn.removeClass("disabled");
+                            active_btn.addClass("disabled")
+                            tr.removeClass("table-active");
+                            icon.removeClass("text-gray-700").addClass("text-gray-400");
+                        },10)
+                    },
+                    error: function (data){
+                        if(data.status == 404){
+                            alert("Enable account fail!");
+                        }
+                    }
+
+                });
+
+            }
+        });
+
+    });
+
 </script>
 <%--//--%>
 

@@ -26,6 +26,29 @@ public class AccountDao {
         return instance;
     }
 
+    public Account getAccountById(String a_id){
+        String query ="select * from account where `user_id` = ? ";
+        try{
+            conn = DBConnect.connect().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1,a_id);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                return new Account(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6));
+            }
+        }catch (Exception e){
+
+        }
+        return null;
+
+    }
+
     public Account login(String user, String pass){
         String query ="select * from account where `username` = ? and `password` = ?";
         try{
@@ -193,6 +216,8 @@ public class AccountDao {
 //        Account b = AccountDao.getInstance().checkAccountExist("admin");
 //        System.out.println(AccountDao.getInstance().hashPassword("abc"));
         AccountDao a1 = new AccountDao();
+        Account a = a1.getAccountById("18");
+        System.out.println(a);
 
     }
 

@@ -11,18 +11,19 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ActiveAccount", value = "/ActiveAccount")
+@WebServlet(name = "ActiveAccount", value = "/admin/activeAccount")
 public class ActiveAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String a_id = request.getParameter("id");
-        Account a =  AdminService.getInstance().activeAccount(a_id);
-        PrintWriter out = response.getWriter();
-        out.println(a.getStatus());
+        Account a = AdminService.getInstance().activeAccount(a_id);
+        if(a == null){
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
     }
 }

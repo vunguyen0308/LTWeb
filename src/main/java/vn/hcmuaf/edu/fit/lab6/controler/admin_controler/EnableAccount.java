@@ -7,20 +7,19 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "User_Management", value = "/admin/user-management")
-public class User_Management extends HttpServlet {
+@WebServlet(name = "EnableAccount", value = "/admin/enableAccount")
+public class EnableAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Account> aList = AdminService.getInstance().getAllAccount();
-        request.setAttribute("listA",aList);
-        request.getRequestDispatcher("user-management.jsp").forward(request,response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String a_id = request.getParameter("id");
+        Account a = AdminService.getInstance().enableAccount(a_id);
+        if(a == null){
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 }

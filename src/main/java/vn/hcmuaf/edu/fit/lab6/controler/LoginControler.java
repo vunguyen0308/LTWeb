@@ -27,8 +27,6 @@ public class LoginControler extends HttpServlet {
                 }
             }
 
-
-
         request.getRequestDispatcher("login.jsp").forward(request,response);
 
     }
@@ -72,6 +70,10 @@ public class LoginControler extends HttpServlet {
                 }
             }
 
+        }else if(a.getStatus() == 2){
+            request.setAttribute("success", "");
+            request.setAttribute("message","Your account has been disabled. Please contact the store directly for support!!");
+            request.getRequestDispatcher("login.jsp").forward(request,response);
         }else{
             request.setAttribute("user", username);
             request.setAttribute("success", "");

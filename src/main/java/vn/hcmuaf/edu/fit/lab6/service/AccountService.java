@@ -16,6 +16,10 @@ public class AccountService {
         return instance;
     }
 
+    public Account getAccountById(String a_id){
+        return AccountDao.getInstance().getAccountById(a_id);
+    }
+
     public Account login(String user, String pass){
         return AccountDao.getInstance().login(user, pass);
     }
