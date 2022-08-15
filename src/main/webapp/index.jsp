@@ -413,14 +413,7 @@
 	<!-- here stars scrolling icon -->
 		<script type="text/javascript">
 			$(document).ready(function() {
-				/*
-					var defaults = {
-					containerID: 'toTop', // fading element id
-					containerHoverID: 'toTopHover', // fading element hover id
-					scrollSpeed: 1200,
-					easingType: 'linear'
-					};
-				*/
+
 
 				$().UItoTop({ easingType: 'easeOutQuart' });
 
@@ -487,29 +480,7 @@
 
 	});
 
-	// function addToCart(product) {
-	// 	var id = $(product).serialize().val[0];
-	// 	var name = $(product).serialize()[1];
-	// 	var price = $(product).serialize()[2];
-	// 	alert(id)
-	// 	$.ajax({
-	// 		type: "POST",
-	// 		url: "/lab6_war_exploded/add",
-	// 		data: {
-	// 			id: id
-	// 		},
-	// 		success: function(data)
-	// 		{
-	// 			$("#detail-name").html(name);
-	// 			$("#detail-price").html(price);
-	// 			$("#detail-quantity").html(data);
-	// 			$("#addCartModal").modal('show');
-	// 		}
-	// 	});
-	//
-	// 	return false;
-	//
-	// }
+
 
 </script>
 
