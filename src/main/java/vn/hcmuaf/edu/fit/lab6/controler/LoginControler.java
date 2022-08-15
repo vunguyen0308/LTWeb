@@ -27,6 +27,8 @@ public class LoginControler extends HttpServlet {
                 }
             }
 
+
+
         request.getRequestDispatcher("login.jsp").forward(request,response);
 
     }
@@ -40,10 +42,9 @@ public class LoginControler extends HttpServlet {
         Account a = AccountService.getInstance().login(username,password);
         if(a == null){
             request.setAttribute("user", username);
-            request.setAttribute("success", "");
             request.setAttribute("message","Username or Password is incorrect");
             request.getRequestDispatcher("login.jsp").forward(request,response);
-        }else if(a.getStatus() == 1){
+        }else{
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
             Cookie u = new Cookie("userC", username);
@@ -70,15 +71,6 @@ public class LoginControler extends HttpServlet {
                 }
             }
 
-        }else if(a.getStatus() == 2){
-            request.setAttribute("success", "");
-            request.setAttribute("message","Your account has been disabled. Please contact the store directly for support!!");
-            request.getRequestDispatcher("login.jsp").forward(request,response);
-        }else{
-            request.setAttribute("user", username);
-            request.setAttribute("success", "");
-            request.setAttribute("message","Your account has not been activated. Please check your email and active account");
-            request.getRequestDispatcher("login.jsp").forward(request,response);
         }
     }
 }

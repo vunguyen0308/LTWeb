@@ -10,9 +10,9 @@ import java.io.IOException;
 
 @WebServlet(name = "AddProduct", value = "/admin/addProduct")
 public class AddProduct extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 
     @Override
@@ -38,7 +38,6 @@ public class AddProduct extends HttpServlet {
         String img = request.getParameter("productImage");
         String quantity = request.getParameter("productQuantity");
 
-        System.out.println(brandId);
         AdminService.getInstance().addProduct(name,brand,gender,origin,concentration,capacity,description,price,sellPrice,style,img,quantity,brandId);
         response.sendRedirect("/lab6_war_exploded/admin/product-management");
     }

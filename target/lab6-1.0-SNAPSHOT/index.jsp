@@ -240,7 +240,7 @@
 											<form id="add-cart-form" class="add-form" action="" method="post" >
 												<fieldset>
 													<c:if test="${pna.quantity > 0}">
-														<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${pna.id}" pname="${pna.name}" pprice="${pna.sellPrice}" pquantity="${pna.quantity}">
+														<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${pna.id}" pname="${pna.name}" pprice="${pna.sellPrice}">
 													</c:if>
 													<c:if test="${pna.quantity == 0}">
 														<input type="submit" title="Sold out" disabled name="submit" value="Add to cart" class="button disable-add">
@@ -283,7 +283,7 @@
 												<form id="add-cart-form2" class="add-form" action="" method="post">
 													<fieldset>
 														<c:if test="${pna.quantity > 0}">
-															<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${pna.id}" pname="${pna.name}" pprice="${pna.sellPrice}" pquantity="${pna.quantity}">
+															<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${pna.id}" pname="${pna.name}" pprice="${pna.sellPrice}">
 														</c:if>
 														<c:if test="${pna.quantity == 0}">
 															<input type="submit" title="Sold out" disabled name="submit" value="Add to cart" class="button disable-add">
@@ -325,7 +325,7 @@
 												<form id="add-cart-form3" class="add-form" action="" method="post">
 													<fieldset>
 														<c:if test="${pna.quantity > 0}">
-															<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${pna.id}" pname="${pna.name}" pprice="${pna.sellPrice}" pquantity="${pna.quantity}" >
+															<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${pna.id}" pname="${pna.name}" pprice="${pna.sellPrice}" pquantity="${p.quantity}">
 														</c:if>
 														<c:if test="${pna.quantity == 0}">
 															<input type="submit" title="Sold out" disabled name="submit" value="Add to cart" class="button disable-add">

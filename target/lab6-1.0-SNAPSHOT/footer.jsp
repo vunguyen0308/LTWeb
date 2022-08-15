@@ -120,15 +120,15 @@
                 <div class="col-md-3 sign-gd flickr-post">
                     <h4>Flickr <span>Posts</span></h4>
                     <ul>
-                        <li><img src="images/member1.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member2.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member3.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member3.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member1.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member2.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member3.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member2.jpg" alt=" " class="img-responsive" /></li>
-                        <li><img src="images/member1.jpg" alt=" " class="img-responsive" /></li>
+                        <li><a href="single.html"><img src="images/t1.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t2.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t3.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t4.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t1.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t2.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t3.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t2.jpg" alt=" " class="img-responsive" /></a></li>
+                        <li><a href="single.html"><img src="images/t4.jpg" alt=" " class="img-responsive" /></a></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>

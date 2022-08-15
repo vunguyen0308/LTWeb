@@ -2,7 +2,7 @@ package vn.hcmuaf.edu.fit.lab6.controler.admin_controler;
 
 import vn.hcmuaf.edu.fit.lab6.beans.Category;
 import vn.hcmuaf.edu.fit.lab6.beans.Product;
-import vn.hcmuaf.edu.fit.lab6.service.AdminService;
+import vn.hcmuaf.edu.fit.lab6.dao.AdminDao;
 import vn.hcmuaf.edu.fit.lab6.service.CategoryService;
 
 import javax.servlet.*;
@@ -15,7 +15,7 @@ import java.util.List;
 public class Product_Management extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> pList = AdminService.getInstance().getAllProducts();
+        List<Product> pList = AdminDao.getInstance().getAllProduct();
         List<Category> categoryList = CategoryService.getInstance().getAllCategory();
 
         request.setAttribute("listP",pList);

@@ -16,20 +16,12 @@ public class AccountService {
         return instance;
     }
 
-    public Account getAccountById(String a_id){
-        return AccountDao.getInstance().getAccountById(a_id);
-    }
-
     public Account login(String user, String pass){
         return AccountDao.getInstance().login(user, pass);
     }
 
-    public Account checkUserExist(String user){
-        return AccountDao.getInstance().checkUserExist(user);
-    }
-
-    public Account checkEmailExist(String email){
-        return AccountDao.getInstance().checkEmailExist(email);
+    public Account checkAccountExist(String user){
+        return AccountDao.getInstance().checkAccountExist(user);
     }
 
     public void register(String user, String pass, String email){
@@ -42,9 +34,5 @@ public class AccountService {
 
     public boolean checkPasswordCorrect(Account a, String password){
         return AccountDao.getInstance().checkPasswordCorrect(a,password);
-    }
-
-    public Account activeAccount(String email, String hashPass){
-         return AccountDao.getInstance().activeAccount(email, hashPass);
     }
 }

@@ -18,7 +18,7 @@ public class Mail {
             message.setFrom(new InternetAddress(username, "Box Perfume"));
             message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to));
             message.setSubject(subject);
-            message.setContent(content,"text/html");
+            message.setText(content);
             Transport.send(message);
             return true;
 
@@ -44,6 +44,6 @@ public class Mail {
     }
 
     public static void main(String[] args) {
-        System.out.println(sendMail("ducminh0573@gmail.com","Test", "123"));
+        System.out.println(sendMail("ducminh0573@gmail.com","Test","tessssssssssssssssss"));
     }
 }

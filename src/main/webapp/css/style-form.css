@@ -151,12 +151,14 @@ input:focus, select:focus, textarea:focus {
   -ms-box-shadow: none !important; }
 
 input[type=checkbox] {
+  appearance: checkbox !important;
   -moz-appearance: checkbox !important;
   -webkit-appearance: checkbox !important;
   -o-appearance: checkbox !important;
   -ms-appearance: checkbox !important; }
 
 input[type=radio] {
+  appearance: radio !important;
   -moz-appearance: radio !important;
   -webkit-appearance: radio !important;
   -o-appearance: radio !important;
@@ -199,7 +201,6 @@ body {
   font-family: Poppins; }
 
 .container {
-  position: relative;
   width: 900px;
   background: #fff;
   margin: 0 auto;
@@ -414,6 +415,7 @@ label {
 
 label.error {
   position: relative;
+  background: url("../images/unchecked.gif") no-repeat;
   background-position-y: 3px;
   padding-left: 20px;
   display: block;
@@ -589,14 +591,4 @@ label.valid {
     margin-right: 0px;
     margin-bottom: 10px; } }
 
-.back-home{
-  position: absolute;
-  top: 16px;
-  left: 36px;
-  font-size: 30px;
-  color: #333;
-}
-
-.back-home:hover{
-  opacity: 0.8;
-}
+/*# sourceMappingURL=style.css.map */

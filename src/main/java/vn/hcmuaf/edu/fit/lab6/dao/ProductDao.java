@@ -59,59 +59,6 @@ public class ProductDao {
         return list;
     }
 
-    public List<Product> getAllProductSort(int sortCode, int conditionCode){
-        String sortBy = "";
-        String condition = "";
-
-//        check sắp xếp theo ?
-        switch (sortCode){
-            case 0:
-                sortBy = "name";
-                break;
-            case 1:
-                sortBy = "sellprice";
-        }
-
-//        check điều kiện sắp xếp
-        switch (conditionCode){
-            case 0:
-                condition = "ASC";
-                break;
-            case 1:
-                condition = "DESC";
-                break;
-        }
-
-        List<Product> list = new ArrayList<>();
-        String query = "select * from product order by " + sortBy + " "+ condition;
-        try {
-            conn = DBConnect.connect().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getDouble(10),
-                        rs.getString(11),
-                        rs.getString(12),
-                        rs.getInt(13),
-                        0,
-                        rs.getInt(14)
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
     public int getTotal() {
         String query = "select count(*) from product";
         try {
@@ -160,35 +107,10 @@ public class ProductDao {
     }
 
 
-    public List<Product> getProduct(int index, int size, int sortCode,int conditionCode) {
-        String sortBy = "";
-        String condition = "";
-
-//        check sắp xếp theo ?
-        switch (sortCode){
-            case 0:
-                sortBy = "id";
-                break;
-            case 1:
-                sortBy = "name";
-                break;
-            case 2:
-                sortBy = "sellprice";
-                break;
-        }
-
-//        check điều kiện sắp xếp
-        switch (conditionCode){
-            case 0:
-                condition = "ASC";
-                break;
-            case 1:
-                condition = "DESC";
-                break;
-        }
+    public List<Product> getProduct(int index, int size) {
         List<Product> list = new ArrayList<>();
-        String query = "with x as (select *, ROW_NUMBER() over (order by " + sortBy + " " + condition + " ) as r from product) \n" +
-                "select * from x where r between ? and ?" ;
+        String query = "with x as (select *, ROW_NUMBER() over (order by id asc) as r from product) \n" +
+                "select * from x where r between ? and ?";
         try {
             conn = DBConnect.connect().getConnection();
             ps = conn.prepareStatement(query);
@@ -320,35 +242,9 @@ public class ProductDao {
         return list;
     }
 
-    public List<Product> searchByName(String txtSearch, int index, int size, int sortCode, int conditionCode){
-        String sortBy = "";
-        String condition = "";
-
-//        check sắp xếp theo ?
-        switch (sortCode){
-            case 0:
-                sortBy = "id";
-                break;
-            case 1:
-                sortBy = "name";
-                break;
-            case 2:
-                sortBy = "sellprice";
-                break;
-        }
-
-//        check điều kiện sắp xếp
-        switch (conditionCode){
-            case 0:
-                condition = "ASC";
-                break;
-            case 1:
-                condition = "DESC";
-                break;
-        }
-
+    public List<Product> searchByName(String txtSearch, int index, int size){
         List<Product> list = new ArrayList<>();
-        String query = "with x as (select *, ROW_NUMBER() over (order by " + sortBy + " " + condition + " ) as r from product\n" +
+        String query = "with x as (select *, ROW_NUMBER() over (order by id asc ) as r from product\n" +
                 " where `name` like ?) \n" +
                 "select * from x where r between ? and ?";
         try {
@@ -403,7 +299,7 @@ public class ProductDao {
 
     public static void main(String[] args) {
         ProductDao p1 = new ProductDao();
-        List<Product> l1 = p1.searchByName("a",2,20,1,1);
+        List<Product> l1 = p1.searchByName("c", 2, 10);
         for (Product p:
              l1) {
             System.out.println(p);

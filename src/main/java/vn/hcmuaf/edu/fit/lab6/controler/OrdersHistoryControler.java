@@ -15,7 +15,7 @@ public class OrdersHistoryControler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Account a  = (Account) session.getAttribute("acc");
+        Account a  =(Account) session.getAttribute("acc");
 
         List<Order> orderList = OrderService.getInstance().getAllOrderActive(a);
         request.setAttribute("oList", orderList);

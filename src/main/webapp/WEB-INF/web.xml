@@ -13,8 +13,6 @@
     <filter-mapping>
         <filter-name>CheckoutFilter</filter-name>
         <url-pattern>/checkout/*</url-pattern>
-<!--        <url-pattern>/order/*</url-pattern>-->
-<!--        <url-pattern>/orders-success/*</url-pattern>-->
     </filter-mapping>
     <!--//-->
 
@@ -34,9 +32,4 @@
         <error-code>404</error-code>
         <location>/error</location>
     </error-page>
-
-    <context-param>
-        <param-name>tempfile.dir</param-name>
-        <param-value>lab6/manage/upload</param-value>
-    </context-param>
 </web-app>

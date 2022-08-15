@@ -6,15 +6,13 @@ public class Account {
     private String password;
     private String email;
     private int isAdmin;
-    private int status;
 
-    public Account(int userId, String username, String password, String email, int isAdmin, int status) {
+    public Account(int userId, String username, String password, String email, int isAdmin) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.email = email;
         this.isAdmin = isAdmin;
-        this.status = status;
     }
 
     public int getUserId() {
@@ -57,14 +55,6 @@ public class Account {
         this.isAdmin = isAdmin;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         return "Account{" +
@@ -73,7 +63,6 @@ public class Account {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
-                ", status=" + status +
                 '}';
     }
 }

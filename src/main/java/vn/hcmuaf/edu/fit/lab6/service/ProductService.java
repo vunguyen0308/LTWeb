@@ -22,8 +22,8 @@ public class ProductService {
         return ProductDao.getInstance().getAll();
     }
 
-    public List<Product> getProduct(int index, int size, int sortCode, int conditionCode) {
-        return ProductDao.getInstance().getProduct(index, size,sortCode,conditionCode);
+    public List<Product> getProduct(int index, int size) {
+        return ProductDao.getInstance().getProduct(index, size);
     }
 
     public Product getProductById(String id){
@@ -38,8 +38,8 @@ public class ProductService {
         return ProductDao.getInstance().getProductByBrand(brand);
     }
 
-    public List<Product> searchByName(String txtSearch, int index, int size, int sortCode, int conditionCode){
-        return ProductDao.getInstance().searchByName(txtSearch, index, size, sortCode,conditionCode);
+    public List<Product> searchByName(String txtSearch, int index, int size){
+        return ProductDao.getInstance().searchByName(txtSearch, index, size);
     }
 
     public void updateProductQuantity(Product p, int quantitySold){
