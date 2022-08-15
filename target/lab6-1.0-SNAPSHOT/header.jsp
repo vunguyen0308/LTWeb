@@ -22,7 +22,7 @@
                     <li class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Hello ${sessionScope.acc.username}</a>
                         <div class="dropdown-menu">
-                            <a style="color: #000" class="dropdown-item" href="orders-history">Orders History</a>
+                            <a style="color: #000" class="dropdown-item" href="#">Orders History</a>
                         </div>
                     </li>
                 </c:if>
@@ -39,7 +39,7 @@
 <div class="header-bot">
     <div class="header-bot_inner_wthreeinfo_header_mid">
         <div class="col-md-4 header-middle" style="float: right;">
-            <form action="search" method="get">
+            <form action="search" method="post">
                 <input type="search" name="search" placeholder="Search here..." required="" value="${result}">
                 <input type="submit" value=" ">
                 <div class="clearfix"></div>

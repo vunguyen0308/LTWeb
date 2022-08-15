@@ -40,6 +40,7 @@
 				<!--/w3_short-->
 					 <div class="services-breadcrumb">
 							<div class="agile_inner_breadcrumb">
+
 							   <ul class="w3_short">
 									<li><a href="index">Home</a><i>/</i></li>
 								   	<li><a href="product">Product</a><i>/</i></li>
@@ -107,7 +108,7 @@
 						<form id="add-cart-form" class="add-form" action="" method="post">
 							<fieldset>
 								<c:if test="${detail.quantity > 0}">
-									<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${detail.id}" pname="${detail.name}" pprice="${detail.sellPrice}" pquantity="${detail.quantity}">
+									<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${detail.id}" pname="${detail.name}" pprice="${detail.sellPrice}">
 								</c:if>
 								<c:if test="${detail.quantity == 0}">
 									<input type="submit" disabled name="submit" value="Add to cart" class="button disable-add">
@@ -208,7 +209,7 @@
 												<form id="add-cart-form2" class="add-form" action="" method="post">
 													<fieldset>
 														<c:if test="${np.quantity > 0}">
-															<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${np.id}" pname="${np.name}" pprice="${np.sellPrice}" pquantity="${np.quantity}">
+															<input type="submit" name="submit" value="Add to cart" class="button addToCart" pid="${np.id}" pname="${np.name}" pprice="${np.sellPrice}" pquantity="${p.quantity}">
 														</c:if>
 														<c:if test="${np.quantity == 0}">
 															<input type="submit" title="Sold out" disabled name="submit" value="Add to cart" class="button disable-add">

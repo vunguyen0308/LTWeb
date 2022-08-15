@@ -5,8 +5,8 @@
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="orderStatus" scope="request" class="vn.hcmuaf.edu.fit.lab6.dao.OrderStatusDao"/>
-<jsp:useBean id="payment" scope="request" class="vn.hcmuaf.edu.fit.lab6.dao.PaymentDao"/>
+<jsp:useBean id="orderStatus" scope="request" class="vn.hcmuaf.edu.fit.projectLTW.dao.OrderStatusDao"/>
+<jsp:useBean id="payment" scope="request" class="vn.hcmuaf.edu.fit.projectLTW.dao.PaymentDao"/>
 
 <!DOCTYPE html>
 <html>
@@ -144,6 +144,14 @@
 <!-- here stars scrolling icon -->
 <script type="text/javascript">
     $(document).ready(function() {
+        /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+            };
+        */
 
         $().UItoTop({ easingType: 'easeOutQuart' });
 
@@ -163,7 +171,7 @@
                 },
                 success: function(data)
                 {
-                    $('#order-detail-modal').find('.modal-title').html('Order Details (Order ID: ' + orderId + ')');
+                    $('#order-detail-modal').find('.modal-title').html('Order Detail (Order ID: ' + orderId + ')');
                     $('#order-detail-modal').find('tbody').html(data);
                     if(statusOrder == 1){
                         $('#order-detail-modal').find('.modal-footer').html(
